@@ -14,7 +14,7 @@ export default function Footer({}: Props) {
 			</p>
 			<nav className="flex items-center gap-4">
 				<Link
-					href="/main/privacy"
+					href="/privacy"
 					className={buttonVariants({
 						className: "text-sm hover:underline",
 						variant: "link",
@@ -24,7 +24,7 @@ export default function Footer({}: Props) {
 					Privacy
 				</Link>
 				<Link
-					href="/main/terms"
+					href="/terms"
 					className={buttonVariants({
 						className: "text-sm hover:underline",
 						variant: "link",
