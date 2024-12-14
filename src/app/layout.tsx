@@ -1,6 +1,9 @@
+import Footer from "@/components/landing/footer";
+import Header from "@/components/landing/header";
 import ConvexClientProvider from "@/components/providers/convex-client-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { siteConfig } from "@/siteConfig";
 import type { Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
 import { Inter } from "next/font/google";
@@ -10,9 +13,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "Chat Flow - Realtime Chat Application",
-	description:
-		"ChatFlow is a modern chat app built with Next.js, React, Clerk, Convex, and TypeScript. Enjoy real-time messaging with secure authentication and a responsive interface. Connect effortlessly and securely with ChatFlow's scalable backend and robust type safety.",
+	title: `${siteConfig.name} - ${siteConfig.description}`,
+	description: siteConfig.description,
 	icons: {
 		icon: {
 			url: "/logo.svg",
@@ -38,7 +40,9 @@ export default function RootLayout({
 							<TooltipProvider>
 								<Toaster richColors />
 								<main className="flex min-h-screen max-w-7xl mx-auto bg-background flex-col items-stretch flex-1 justify-stretch">
+									<Header />
 									{children}
+									<Footer />
 								</main>
 							</TooltipProvider>
 						</ThemeProvider>
