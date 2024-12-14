@@ -1,5 +1,4 @@
 import { ConvexError } from "convex/values";
-import { Id } from "./_generated/dataModel";
 import { MutationCtx, QueryCtx } from "./_generated/server";
 
 type Ctx = QueryCtx | MutationCtx;
@@ -28,41 +27,4 @@ export async function tryToGetUserIdentity(ctx: Ctx) {
 		currentUser,
 		identity,
 	};
-}
-
-export async function getLastMessageDetails(ctx: Ctx, id?: Id<"messages">) {
-	if (!id) {
-		return null;
-	}
-
-	const message = await ctx.db.get(id);
-	if (!message) {
-		return null;
-	}
-
-	const sender = await ctx.db.get(message.authorId);
-
-	if (!sender) {
-		return null;
-	}
-
-	const content = getMessageContent(
-		message.type,
-		message.body as unknown as string
-	);
-
-	return {
-		content,
-		sender: sender.username,
-	};
-}
-
-function getMessageContent(type: string, content: string) {
-	switch (type) {
-		case "text":
-			return content;
-
-		default:
-			return "[Non-Text]";
-	}
 }
