@@ -1,35 +1,54 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/siteConfig";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import Logo from "../icons/logo";
+import { Github } from "lucide-react";
 
-type Props = {};
-
-export default function Header({}: Props) {
+export default function Header() {
 	return (
-		<header className="bg-transparent backdrop-blur-xl z-50 px-4 sticky top-0 border-b md:px-6 py-4 flex items-center justify-between">
+		<header className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50 px-4 sticky top-0 border-b md:px-6 py-4 flex items-center justify-between">
 			<Link href="/" className="flex items-center gap-4">
-				<Logo color="black" size={50} />
-				<span className="text-2xl font-semibold">{siteConfig.name}</span>
+				<Logo color="black" size={40} />
+				<span className="text-xl font-semibold">{siteConfig.name}</span>
 			</Link>
-			<div className="flex items-center gap-2">
+			<nav className="flex items-center gap-4">
+				<Link
+					href="/features"
+					className={buttonVariants({ variant: "ghost", size: "sm" })}
+				>
+					Features
+				</Link>
+				<Link
+					href="/docs"
+					className={buttonVariants({ variant: "ghost", size: "sm" })}
+				>
+					Docs
+				</Link>
+				<Link
+					href="https://github.com/yourusername/your-repo"
+					target="_blank"
+					rel="noopener noreferrer"
+					className={buttonVariants({ variant: "ghost", size: "sm" })}
+				>
+					<Github className="w-4 h-4 mr-2" />
+					GitHub
+				</Link>
 				<SignedIn>
 					<Link
-						href="/conversations"
-						prefetch
-						className={buttonVariants({ variant: "link", size: "sm" })}
+						href="/dashboard"
+						className={buttonVariants({ variant: "ghost", size: "sm" })}
 					>
-						All Conversations
+						Dashboard
 					</Link>
-					<UserButton />
+					<UserButton afterSignOutUrl="/" />
 				</SignedIn>
 				<SignedOut>
-					<Button variant="link" className="text-md underline">
-						<SignInButton>Sign In</SignInButton>
+					<Button variant="default" size="sm">
+						<SignInButton mode="modal">Try Demo</SignInButton>
 					</Button>
 				</SignedOut>
-			</div>
+			</nav>
 		</header>
 	);
 }
