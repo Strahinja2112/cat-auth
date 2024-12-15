@@ -74,7 +74,7 @@ export default function Header() {
 					</SignedIn>
 					<SignedOut>
 						<Button variant={scrolled ? "default" : "outline"} size="sm">
-							<SignInButton mode="modal">Try Demo</SignInButton>
+							<SignInButton>Try Demo</SignInButton>
 						</Button>
 					</SignedOut>
 				</nav>

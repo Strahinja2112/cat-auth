@@ -4,6 +4,7 @@ import { httpAction } from "./_generated/server";
 
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { internal } from "./_generated/api";
+import { Id } from "./_generated/dataModel";
 
 const http = httpRouter();
 
@@ -33,6 +34,19 @@ const handleClerkWebhook = httpAction(async (ctx, request) => {
 				imageUrl: event.data.image_url,
 				clerkID: event.data.id,
 				email: event.data.email_addresses[0].email_address,
+			});
+
+			break;
+		}
+		case "user.deleted": {
+			if (!event.data.id) {
+				break;
+			}
+
+			console.log(event.data.id);
+
+			await ctx.runMutation(internal.user.deleteUserByClerkID, {
+				clerkId: event.data.id as Id<"users">,
 			});
 
 			break;

@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-function CatAuthLandingPage() {
+export default function CatAuthLandingPage() {
 	const [copied, setCopied] = useState(false);
 	const npmInstallCommand = "npx create-cat-auth@latest";
 
@@ -216,5 +216,3 @@ function CatAuthLandingPage() {
 		</div>
 	);
 }
-
-export default CatAuthLandingPage;

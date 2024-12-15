@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { internalMutation, internalQuery } from "./_generated/server";
+import { internalMutation, internalQuery, mutation } from "./_generated/server";
 
 export const createUser = internalMutation({
 	args: {
@@ -22,5 +22,23 @@ export const getUser = internalQuery({
 			.query("users")
 			.withIndex("by_clerkID", (q) => q.eq("clerkID", args.id))
 			.unique();
+	},
+});
+
+export const deleteUserByClerkID = internalMutation({
+	args: {
+		clerkId: v.string(),
+	},
+	async handler(ctx, args) {
+		const user = await ctx.db
+			.query("users")
+			.withIndex("by_clerkID", (q) => q.eq("clerkID", args.clerkId))
+			.unique();
+
+		if (!user) {
+			return;
+		}
+
+		await ctx.db.delete(user._id);
 	},
 });
