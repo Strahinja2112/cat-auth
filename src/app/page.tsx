@@ -1,196 +1,223 @@
-import BeginChat from "@/components/icons/begin-chat";
-import Footer from "@/components/landing/footer";
-import Header from "@/components/landing/header";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { features } from "@/constants";
-import { siteConfig } from "@/siteConfig";
-import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
-import { TriangleAlertIcon } from "lucide-react";
-import { Link } from "next-view-transitions";
+"use client";
 
-export default function Home() {
+import Logo from "@/components/icons/logo";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { motion } from "framer-motion";
+import {
+	Check,
+	Copy,
+	Download,
+	ExternalLink,
+	Github,
+	LayoutGrid,
+	Moon,
+	Sun,
+} from "lucide-react";
+import { useTheme } from "next-themes";
+import React, { useState } from "react";
+
+function CatAuthLandingPage() {
+	const [copied, setCopied] = useState(false);
+	const npmInstallCommand = "npx create-cat-auth@latest";
+
+	function handleCopy() {
+		navigator.clipboard.writeText(npmInstallCommand);
+		setCopied(true);
+		setTimeout(() => setCopied(false), 2000);
+	}
+
 	return (
-		<main className="flex-1">
-			<section className="w-full py-12 md:pb-24">
-				<div className="container px-4 md:px-6">
-					<div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-						<div className="flex flex-col justify-center space-y-6">
-							<div className="space-y-4 lg:ml-5">
-								<h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-center lg:text-start">
-									Seamless Communication for Your Team
-								</h1>
-								<p className="max-w-[600px] text-center md:text-start mx-auto text-muted-foreground md:text-xl">
-									Empower your team with real-time messaging, file sharing, and
-									group chat capabilities.
-								</p>
-							</div>
-							<div className="flex flex-col gap-2 min-[400px]:flex-row items-center lg:justify-start justify-center p-0 lg:pl-4">
-								<SignedOut>
-									<SignInButton mode="modal">
-										<Button className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
-											Get Started
-										</Button>
-									</SignInButton>
-								</SignedOut>
-								<SignedIn>
-									<Link
-										href="/conversations"
-										className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-									>
-										Conversations
-									</Link>
-								</SignedIn>
-								<Link
-									target="_blank"
-									href={siteConfig.portfolioLink}
-									className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-									prefetch={false}
-								>
-									Learn More
-								</Link>
-							</div>
-						</div>
-						<div className="flex items-center justify-center">
-							<BeginChat size={550} />
-						</div>
-					</div>
-				</div>
-			</section>
-			<section className="w-full py-12 md:py-24 lg:py-32 bg-muted/20 md:rounded-lg">
-				<div className="container space-y-12 px-4 md:px-6">
-					<div className="flex flex-col items-center justify-center space-y-4 text-center">
-						<div className="space-y-2">
-							<div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
-								Key Features
-							</div>
-							<h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-								Empower Your Team with Advanced Chat
-							</h2>
-							<p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-								Our {siteConfig.name}lication offers a suite of powerful
-								features to streamline your team&apos;s communication and
-								collaboration.
-							</p>
-						</div>
-					</div>
-					<div className="mx-auto grid items-start gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-2">
-						{features.map((feature, index) => (
-							<div key={index} className="grid gap-1">
-								<h3 className="text-xl font-bold">{feature.title}</h3>
-								<p className="text-sm text-muted-foreground">
-									{feature.description}
-								</p>
-							</div>
-						))}
-					</div>
-					<div className="flex justify-center flex-row items-start gap-4">
-						<SignedOut>
-							<SignInButton mode="modal">
-								<Button className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
-									Sign Up
-								</Button>
-							</SignInButton>
-						</SignedOut>
-						<SignedIn>
-							<Link
-								href="/conversations"
-								className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-							>
-								Conversations
-							</Link>
-						</SignedIn>
-						<Link
-							target="_blank"
-							href={siteConfig.portfolioLink}
-							className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-							prefetch={false}
-						>
-							Learn More
-						</Link>
-					</div>
-				</div>
-			</section>
-			<section className="w-full pt-12 md:py-24 lg:pt-32">
-				<div className="container px-4 md:px-6">
-					<div className="flex flex-col items-center justify-center space-y-4 text-center">
-						<div className="space-y-2">
-							<div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
-								Testimonials
-							</div>
-							<h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-								What Our Customers Say
-							</h2>
-							<p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-								Hear from our satisfied customers about their experience with
-								our application.
-							</p>
-						</div>
-					</div>
-					<div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-						<Card className="p-6 shadow-md">
-							<div className="flex items-start gap-4">
-								<Avatar>
-									<AvatarImage src="/placeholder-user.jpg" />
-									<AvatarFallback>JD</AvatarFallback>
-								</Avatar>
-								<div className="grid gap-1 items-start">
-									<div className="flex items-center gap-2">
-										<div className="font-bold">John Doe</div>
-										<div className="text-sm text-muted-foreground">
-											Product Manager
-										</div>
-									</div>
-									<p className="text-muted-foreground">
-										&quot;Our team has been using the {siteConfig.name} for
-										months and it has completely transformed the way we
-										communicate. The real-time messaging and file sharing
-										features are game-changers.&quot;
-									</p>
-								</div>
-							</div>
-						</Card>
-						<Card className="p-6 shadow-md">
-							<div className="flex items-start gap-4">
-								<Avatar>
-									<AvatarImage src="/placeholder-user.jpg" />
-									<AvatarFallback>JD</AvatarFallback>
-								</Avatar>
-								<div className="grid gap-1 items-start">
-									<div className="flex items-center gap-2">
-										<div className="font-bold">Jane Smith</div>
-										<div className="text-sm text-muted-foreground">
-											Software Engineer
-										</div>
-									</div>
-									<p className="text-muted-foreground">
-										&quot;I&apos;ve tried many chat apps, but the{" "}
-										{siteConfig.name} is by far the best. The user experience is
-										intuitive, and the integrations with our other tools make it
-										a seamless part of our workflow.&quot;
-									</p>
-								</div>
-							</div>
-						</Card>
-					</div>
-				</div>
-			</section>
-			<div className="container mx-auto max-w-3xl mb-5 w-full">
-				<div className="flex items-center gap-4">
-					<TriangleAlertIcon className="size-14 fill-destructive text-black" />
-					<div>
-						<h3 className="text-lg font-semibold">
-							Disclaimer: Reviews Not Real
-						</h3>
-						<p className="text-muted-foreground">
-							The reviews shown on this website are not real and should not be
-							taken as genuine customer feedback. They are for demonstration
-							purposes only.
-						</p>
-					</div>
-				</div>
+		<div className="min-h-screen flex items-center justify-center bg-gradient-to-br dark:bg-gradient-to-br from-indigo-100/70 via-white/70 to-cyan-100/70 dark:from-gray-950/90 dark:via-gray-900/90 dark:to-gray-950/90 relative overflow-hidden">
+			<div className="absolute inset-0 pointer-events-none">
+				{[...Array(75)].map((_, i) => (
+					<motion.div
+						key={i}
+						initial={{
+							opacity: 0,
+							x: Math.random() * window.innerWidth,
+							y: Math.random() * window.innerHeight,
+						}}
+						animate={{
+							opacity: [0, 0.5, 0],
+							scale: [1, 2, 1],
+							transition: {
+								duration: Math.random() * 5 + 3,
+								repeat: Infinity,
+								delay: Math.random() * 2,
+							},
+						}}
+						className="absolute w-2 h-2 bg-indigo-200/70 dark:bg-indigo-600/40 rounded-full"
+					/>
+				))}
 			</div>
-		</main>
+
+			<div className="container mx-auto w-full px-4 sm:px-6 lg:px-8 py-16 relative z-10 flex flex-col items-center">
+				<motion.div
+					initial={{ opacity: 0, y: 50 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.8 }}
+					className="flex flex-col items-center text-center"
+				>
+					<div className="flex items-center gap-5 flex-col text-5xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-500 mb-4">
+						<Logo size={80} />
+						CAT Auth
+					</div>
+					<p className="text-muted-foreground text-sm sm:text-base pb-3">
+						CAT (Convex Auth Template)
+					</p>
+					<p className="text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8">
+						A powerful, production-ready authentication template combining
+						Next.js, Tailwind CSS, Shadcn, Clerk, and Convex for rapid web app
+						development.
+					</p>
+
+					<div className="flex flex-col w-full items-center gap-4 mb-12">
+						{/* NPM Install Command */}
+						<div className="flex items-center w-full bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm rounded-lg p-2 max-w-full sm:max-w-lg border border-gray-200/50 dark:border-gray-700/50 shadow-sm">
+							<code className="flex-grow text-lg text-gray-800 dark:text-gray-200 mr-2">
+								{npmInstallCommand}
+							</code>
+							<Button
+								variant="ghost"
+								size="icon"
+								onClick={handleCopy}
+								className="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white/30 dark:hover:bg-gray-800/50 backdrop-blur-sm"
+							>
+								{copied ? (
+									<Check className="w-5 h-5" />
+								) : (
+									<Copy className="w-5 h-5" />
+								)}
+							</Button>
+						</div>
+
+						{/* Buttons */}
+						<TooltipProvider>
+							<div className="flex flex-col sm:flex-row gap-2 md:gap-4 w-full max-w-[512px]">
+								<Tooltip>
+									<TooltipTrigger asChild>
+										<Button
+											variant="outline"
+											size="lg"
+											className="group w-full bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/30"
+											onClick={() =>
+												window.open(
+													"https://github.com/yourusername/cat-auth",
+													"_blank"
+												)
+											}
+										>
+											<Github className="mr-2 group-hover:rotate-12 transition-transform" />
+											GitHub Repository
+										</Button>
+									</TooltipTrigger>
+									<TooltipContent>View source code on GitHub</TooltipContent>
+								</Tooltip>
+
+								<Tooltip>
+									<TooltipTrigger asChild>
+										<Button
+											variant="outline"
+											size="lg"
+											className="group w-full bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 hover:bg-cyan-50/50 dark:hover:bg-cyan-900/30"
+											onClick={() =>
+												window.open(
+													"https://www.npmjs.com/package/cat-auth",
+													"_blank"
+												)
+											}
+										>
+											<Download className="mr-2 group-hover:scale-110 transition-transform" />
+											NPM Package
+										</Button>
+									</TooltipTrigger>
+									<TooltipContent>Install via npm</TooltipContent>
+								</Tooltip>
+							</div>
+						</TooltipProvider>
+					</div>
+
+					{/* Responsive Card Grid */}
+					<motion.div
+						initial={{ opacity: 0, scale: 0.9 }}
+						animate={{ opacity: 1, scale: 1 }}
+						transition={{ duration: 0.5, delay: 0.5 }}
+						className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-full sm:max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto"
+					>
+						<Card className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl transition-shadow">
+							<CardContent className="pt-6 text-center">
+								<LayoutGrid
+									className="mx-auto mb-4 text-indigo-500 dark:text-indigo-400"
+									size={48}
+								/>
+								<h3 className="text-lg sm:text-xl font-semibold mb-2 dark:text-gray-200">
+									Modern Stack
+								</h3>
+								<p className="text-sm sm:text-base text-gray-700 dark:text-gray-400">
+									Leveraging the latest web technologies for optimal
+									performance.
+								</p>
+							</CardContent>
+						</Card>
+
+						<Card className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl transition-shadow">
+							<CardContent className="pt-6 text-center">
+								<ExternalLink
+									className="mx-auto mb-4 text-cyan-500 dark:text-cyan-400"
+									size={48}
+								/>
+								<h3 className="text-lg sm:text-xl font-semibold mb-2 dark:text-gray-200">
+									Easy Integration
+								</h3>
+								<p className="text-sm sm:text-base text-gray-700 dark:text-gray-400">
+									Plug-and-play template ready for your next project.
+								</p>
+							</CardContent>
+						</Card>
+
+						<Card className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl transition-shadow">
+							<CardContent className="pt-6 text-center">
+								<Github
+									className="mx-auto mb-4 text-purple-500 dark:text-purple-400"
+									size={48}
+								/>
+								<h3 className="text-lg sm:text-xl font-semibold mb-2 dark:text-gray-200">
+									Open Source
+								</h3>
+								<p className="text-sm sm:text-base text-gray-700 dark:text-gray-400">
+									Fully customizable and community-driven.
+								</p>
+							</CardContent>
+						</Card>
+					</motion.div>
+
+					{/* Badge for Portfolio */}
+					<a
+						href="https://yourportfolio.com"
+						target="_blank"
+						rel="noopener noreferrer"
+						className="my-4"
+					>
+						<Badge
+							variant="outline"
+							className="hover:bg-white/30 dark:hover:bg-gray-800/50 transition-colors backdrop-blur-sm"
+						>
+							<ExternalLink className="mr-2" size={16} />
+							Developer Portfolio
+						</Badge>
+					</a>
+				</motion.div>
+			</div>
+		</div>
 	);
 }
+
+export default CatAuthLandingPage;

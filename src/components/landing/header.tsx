@@ -33,7 +33,7 @@ export default function Header() {
 		>
 			<div className="max-w-7xl mx-auto flex items-center justify-between">
 				<Link href="/" className="flex items-center gap-2">
-					<Logo color={"black"} size={32} />
+					<Logo color={"black"} size={45} />
 					<span className={`text-lg font-bold text-foreground`}>
 						{siteConfig.name}
 					</span>

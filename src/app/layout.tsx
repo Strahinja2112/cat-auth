@@ -34,16 +34,12 @@ export default function RootLayout({
 					<ConvexClientProvider>
 						<ThemeProvider
 							attribute="class"
-							defaultTheme="light"
+							forcedTheme="dark"
 							disableTransitionOnChange
 						>
 							<TooltipProvider>
 								<Toaster richColors />
-								<main className="flex min-h-screen max-w-7xl mx-auto bg-background flex-col items-stretch flex-1 justify-stretch">
-									<Header />
-									{children}
-									<Footer />
-								</main>
+								{children}
 							</TooltipProvider>
 						</ThemeProvider>
 					</ConvexClientProvider>
