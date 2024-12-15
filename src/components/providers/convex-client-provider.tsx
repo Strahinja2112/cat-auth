@@ -19,9 +19,6 @@ export default function ConvexClientProvider({ children }: PropsWithChildren) {
 			}}
 		>
 			<ConvexProviderWithClerk useAuth={useAuth} client={convexClient}>
-				{/* <AuthLoading>
-					<LoadingLogo />
-				</AuthLoading> */}
 				{children}
 			</ConvexProviderWithClerk>
 		</ClerkProvider>
