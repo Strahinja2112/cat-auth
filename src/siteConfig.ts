@@ -2,6 +2,6 @@ export const siteConfig = {
 	name: "CAT Auth",
 	url: "https://chat-flow-super.app",
 	description:
-		"I'm a full stack software engineer with a love for building innovative and user-friendly applications. In my free time, I enjoy tinkering with new technologies.",
+		"A powerful, production-ready authentication template combining Next.js, Tailwind CSS, Shadcn, Clerk, and Convex for rapid web app development.",
 	portfolioLink: "https://strahinja.vercel.app/",
 };

@@ -10,6 +10,7 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { siteConfig } from "@/siteConfig";
 import { motion } from "framer-motion";
 import {
 	Check,
@@ -18,15 +19,16 @@ import {
 	ExternalLink,
 	Github,
 	LayoutGrid,
-	Moon,
-	Sun,
 } from "lucide-react";
-import { useTheme } from "next-themes";
-import React, { useState } from "react";
+import { useState } from "react";
 
 function CatAuthLandingPage() {
 	const [copied, setCopied] = useState(false);
 	const npmInstallCommand = "npx create-cat-auth@latest";
+
+	if (typeof window === "undefined") {
+		return null;
+	}
 
 	function handleCopy() {
 		navigator.clipboard.writeText(npmInstallCommand);
@@ -74,9 +76,7 @@ function CatAuthLandingPage() {
 						CAT (Convex Auth Template)
 					</p>
 					<p className="text-lg sm:text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8">
-						A powerful, production-ready authentication template combining
-						Next.js, Tailwind CSS, Shadcn, Clerk, and Convex for rapid web app
-						development.
+						{siteConfig.description}
 					</p>
 
 					<div className="flex flex-col w-full items-center gap-4 mb-12">
