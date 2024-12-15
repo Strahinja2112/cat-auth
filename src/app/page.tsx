@@ -26,10 +26,6 @@ function CatAuthLandingPage() {
 	const [copied, setCopied] = useState(false);
 	const npmInstallCommand = "npx create-cat-auth@latest";
 
-	if (typeof window === "undefined") {
-		return null;
-	}
-
 	function handleCopy() {
 		navigator.clipboard.writeText(npmInstallCommand);
 		setCopied(true);
@@ -38,28 +34,30 @@ function CatAuthLandingPage() {
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gradient-to-br dark:bg-gradient-to-br from-indigo-100/70 via-white/70 to-cyan-100/70 dark:from-gray-950/90 dark:via-gray-900/90 dark:to-gray-950/90 relative overflow-hidden">
-			<div className="absolute inset-0 pointer-events-none">
-				{[...Array(75)].map((_, i) => (
-					<motion.div
-						key={i}
-						initial={{
-							opacity: 0,
-							x: Math.random() * window.innerWidth,
-							y: Math.random() * window.innerHeight,
-						}}
-						animate={{
-							opacity: [0, 0.5, 0],
-							scale: [1, 2, 1],
-							transition: {
-								duration: Math.random() * 5 + 3,
-								repeat: Infinity,
-								delay: Math.random() * 2,
-							},
-						}}
-						className="absolute w-2 h-2 bg-indigo-200/70 dark:bg-indigo-600/40 rounded-full"
-					/>
-				))}
-			</div>
+			{typeof window !== "undefined" ? (
+				<div className="absolute inset-0 pointer-events-none">
+					{[...Array(75)].map((_, i) => (
+						<motion.div
+							key={i}
+							initial={{
+								opacity: 0,
+								x: Math.random() * window.innerWidth,
+								y: Math.random() * window.innerHeight,
+							}}
+							animate={{
+								opacity: [0, 0.5, 0],
+								scale: [1, 2, 1],
+								transition: {
+									duration: Math.random() * 5 + 3,
+									repeat: Infinity,
+									delay: Math.random() * 2,
+								},
+							}}
+							className="absolute w-2 h-2 bg-indigo-200/70 dark:bg-indigo-600/40 rounded-full"
+						/>
+					))}
+				</div>
+			) : null}
 
 			<div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10 flex flex-col items-center">
 				<motion.div
