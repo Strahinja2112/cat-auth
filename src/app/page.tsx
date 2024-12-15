@@ -2,7 +2,7 @@
 
 import Logo from "@/components/icons/logo";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
 	Tooltip,
@@ -20,17 +20,13 @@ import {
 	Github,
 	LayoutGrid,
 } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function CatAuthLandingPage() {
 	const [copied, setCopied] = useState(false);
-	const npmInstallCommand = "npx create-cat-auth@latest";
-
-	function handleCopy() {
-		navigator.clipboard.writeText(npmInstallCommand);
-		setCopied(true);
-		setTimeout(() => setCopied(false), 2000);
-	}
+	const npmInstallCommand = `git clone ${siteConfig.links.github}`;
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gradient-to-br dark:bg-gradient-to-br from-indigo-100/70 via-white/70 to-cyan-100/70 dark:from-gray-950/90 dark:via-gray-900/90 dark:to-gray-950/90 relative overflow-hidden">
@@ -77,15 +73,20 @@ export default function CatAuthLandingPage() {
 					</p>
 
 					<div className="flex flex-col w-full items-center gap-4 mb-12">
-						{/* NPM Install Command */}
-						<div className="flex items-center w-full bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm rounded-lg p-2 max-w-full sm:max-w-lg border border-gray-200/50 dark:border-gray-700/50 shadow-sm">
-							<code className="flex-grow text-lg text-gray-800 dark:text-gray-200 mr-2">
+						<div className="flex items-center w-full bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm rounded-lg p-2 max-w-full sm:max-w-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-sm">
+							<code className="flex-grow text-sm text-gray-800 dark:text-gray-200 mr-2">
 								{npmInstallCommand}
 							</code>
 							<Button
 								variant="ghost"
 								size="icon"
-								onClick={handleCopy}
+								onClick={() => {
+									navigator.clipboard.writeText(npmInstallCommand);
+									setCopied(true);
+									setTimeout(() => setCopied(false), 2000);
+
+									toast.success("Copied to clipboard");
+								}}
 								className="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white/30 dark:hover:bg-gray-800/50 backdrop-blur-sm"
 							>
 								{copied ? (
@@ -95,42 +96,35 @@ export default function CatAuthLandingPage() {
 								)}
 							</Button>
 						</div>
-
-						{/* Buttons */}
 						<TooltipProvider>
-							<div className="flex flex-col sm:flex-row gap-2 md:gap-4 w-full max-w-[512px]">
+							<div className="flex flex-col sm:flex-row gap-2 md:gap-4 w-full max-w-2xl">
 								<Tooltip>
 									<TooltipTrigger asChild>
-										<Button
-											variant="outline"
-											size="lg"
-											className="group w-full bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/30"
-											onClick={() =>
-												window.open(
-													"https://github.com/yourusername/cat-auth",
-													"_blank"
-												)
-											}
+										<Link
+											href={siteConfig.links.github}
+											target="_blank"
+											className={buttonVariants({
+												variant: "outline",
+												size: "lg",
+												className:
+													"group w-full bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/30",
+											})}
 										>
 											<Github className="mr-2 group-hover:rotate-12 transition-transform" />
 											GitHub Repository
-										</Button>
+										</Link>
 									</TooltipTrigger>
 									<TooltipContent>View source code on GitHub</TooltipContent>
 								</Tooltip>
-
 								<Tooltip>
 									<TooltipTrigger asChild>
 										<Button
 											variant="outline"
 											size="lg"
 											className="group w-full bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-700/50 hover:bg-cyan-50/50 dark:hover:bg-cyan-900/30"
-											onClick={() =>
-												window.open(
-													"https://www.npmjs.com/package/cat-auth",
-													"_blank"
-												)
-											}
+											onClick={() => {
+												toast.error("This feature is not available yet.");
+											}}
 										>
 											<Download className="mr-2 group-hover:scale-110 transition-transform" />
 											NPM Package
@@ -141,8 +135,6 @@ export default function CatAuthLandingPage() {
 							</div>
 						</TooltipProvider>
 					</div>
-
-					{/* Responsive Card Grid */}
 					<motion.div
 						initial={{ opacity: 0, scale: 0.9 }}
 						animate={{ opacity: 1, scale: 1 }}
@@ -195,8 +187,6 @@ export default function CatAuthLandingPage() {
 							</CardContent>
 						</Card>
 					</motion.div>
-
-					{/* Badge for Portfolio */}
 					<a
 						href="https://yourportfolio.com"
 						target="_blank"
@@ -205,7 +195,7 @@ export default function CatAuthLandingPage() {
 					>
 						<Badge
 							variant="outline"
-							className="hover:bg-white/30 dark:hover:bg-gray-800/50 transition-colors backdrop-blur-sm"
+							className="hover:bg-white/30 dark:hover:bg-gray-800/50 transition-colors backdrop-blur-sm rounded-sm p-2"
 						>
 							<ExternalLink className="mr-2" size={16} />
 							Developer Portfolio

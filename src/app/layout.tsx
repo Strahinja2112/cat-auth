@@ -37,7 +37,7 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
 							disableTransitionOnChange
 						>
 							<TooltipProvider>
-								<Toaster richColors />
+								<Toaster richColors theme="dark" position="top-center" />
 								{/* <Header /> */}
 								{children}
 							</TooltipProvider>
