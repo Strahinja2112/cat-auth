@@ -38,7 +38,7 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
 						>
 							<TooltipProvider>
 								<Toaster richColors />
-								<Header />
+								{/* <Header /> */}
 								{children}
 							</TooltipProvider>
 						</ThemeProvider>

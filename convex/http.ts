@@ -19,7 +19,7 @@ const handleClerkWebhook = httpAction(async (ctx, request) => {
 
 	switch (event.type) {
 		case "user.created": {
-			const user = await ctx.runQuery(internal.user.getUser, {
+			const user = await ctx.runQuery(internal.users.getUser, {
 				id: event.data.id,
 			});
 
@@ -29,7 +29,7 @@ const handleClerkWebhook = httpAction(async (ctx, request) => {
 
 			console.log("Creating a new user!");
 
-			await ctx.runMutation(internal.user.createUser, {
+			await ctx.runMutation(internal.users.createUser, {
 				username: `${event.data.first_name} ${event.data.last_name}`,
 				imageUrl: event.data.image_url,
 				clerkID: event.data.id,
@@ -45,7 +45,7 @@ const handleClerkWebhook = httpAction(async (ctx, request) => {
 
 			console.log(event.data.id);
 
-			await ctx.runMutation(internal.user.deleteUserByClerkID, {
+			await ctx.runMutation(internal.users.deleteUserByClerkID, {
 				clerkId: event.data.id as Id<"users">,
 			});
 
@@ -54,7 +54,7 @@ const handleClerkWebhook = httpAction(async (ctx, request) => {
 		// case "user.updated": {
 		// 	console.log(`Updating user: ${event.data.id}`);
 
-		// 	await ctx.runMutation(internal.user.createUser, {
+		// 	await ctx.runMutation(internal.users.createUser, {
 		// 		username: `${event.data.first_name} ${event.data.last_name}`,
 		// 		imageUrl: event.data.image_url,
 		// 		clerkID: event.data.id,
