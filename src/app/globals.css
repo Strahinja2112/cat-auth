@@ -52,7 +52,7 @@ body {
 
 		--chart-5: 27 87% 67%;
 	}
-  .dark {
+	.dark {
 		--background: 222.2 84% 4.9%;
 		--foreground: 210 40% 98%;
 		--card: 222.2 84% 4.9%;
@@ -78,6 +78,10 @@ body {
 		--chart-4: 280 65% 60%;
 		--chart-5: 340 75% 55%;
 	}
+}
+
+code {
+	font-family: "Sf Mono";
 }
 
 @layer base {

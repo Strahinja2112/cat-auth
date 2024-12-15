@@ -58,7 +58,6 @@ function CatAuthLandingPage() {
 					))}
 				</div>
 			) : null}
-
 			<div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10 flex flex-col items-center">
 				<motion.div
 					initial={{ opacity: 0, y: 50 }}
@@ -67,7 +66,7 @@ function CatAuthLandingPage() {
 					className="flex flex-col items-center text-center"
 				>
 					<div className="flex items-center gap-5 flex-col text-5xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-blue-500 mb-4">
-						<Logo size={80} />
+						<Logo size={80} color="#ffffffaf" />
 						CAT Auth
 					</div>
 					<p className="text-muted-foreground text-sm sm:text-base pb-3">
